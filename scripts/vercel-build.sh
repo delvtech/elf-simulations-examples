@@ -1,7 +1,6 @@
-export PATH="$HOME/.pyenv/bin:$PATH"
-export PYENV_ROOT="$HOME/.pyenv"
+source ~/.bashrc
 source .venv/bin/activate
-rm -rf public docs/source/autoapi
+rm -rf public
 mkdir public
 ./scripts/notebook_docs.sh
 cp -r build/* ../public/
