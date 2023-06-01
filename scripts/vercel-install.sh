@@ -1,3 +1,7 @@
+pyenv install 3.9
+pyenv local 3.9
+python -m venv .venv
+source .venv/bin/activate
 python3 --version
 which python3
 python3 -m ensurepip
