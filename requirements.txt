@@ -1,0 +1,35 @@
+# Dependencies copied from elf-simulations, this list should really be defined in setup.py in the main repo
+
+astunparse
+black
+# make cached keys warning use logging: https://github.com/ApeWorX/ape/pull/1462
+eth-ape @ git+https://github.com/wakamex/ape@v0.6.10.420
+ipython
+jupytext
+matplotlib
+nbconvert
+numpy
+pandas
+pylint
+pyright
+pytest
+python-dotenv
+scipy
+tomli
+typing_extensions==4.5.0
+# documentation
+tomli>=2.0.1
+sphinx>=5.3
+sphinx_autodoc_typehints>=1.21.8
+sphinx-autoapi>=2.0.1
+myst-parser>=0.18.1
+numpydoc>=1.5.0
+sphinxcontrib-napoleon>=0.7
+autodocsumm>=0.2.10
+nbsphinx>=0.8.12
+sphinx-rtd-theme>=1.1.1
+# urllib3 v2 requires OpenSSL v1.1.1+, but Vercel uses v1.0.2
+urllib3<2.0
+
+# This grabs latest commit on main
+elfpy @ git+https://github.com/delvtech/elf-simulations

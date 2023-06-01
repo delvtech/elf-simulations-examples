@@ -1,0 +1,12 @@
+# HTML build dir
+build/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+elf-env
