@@ -1,3 +1,4 @@
+yum install sqlite3
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 export PATH="$HOME/.pyenv/bin:$PATH"
 pyenv install 3.9
