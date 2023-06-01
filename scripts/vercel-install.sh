@@ -1,7 +1,7 @@
 curl https://pyenv.run | bash
-pyenv install 3.9
-pyenv local 3.9
-python -m venv .venv
+$HOME/.pyenv/bin/pyenv install 3.9
+$HOME/.pyenv/bin/pyenv local 3.9
+$HOME/.pyenv/bin/python -m venv .venv
 source .venv/bin/activate
 python3 --version
 which python3
