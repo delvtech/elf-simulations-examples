@@ -2,9 +2,9 @@ yum install sqlite-devel.x86_64 -y
 yum install -y xz-devel -y
 curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
 export PATH="$HOME/.pyenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
 pyenv install 3.9
 pyenv local 3.9
-export PYENV_ROOT="$HOME/.pyenv"
 eval "(pyenv init -)"
 which python3
 python3 -m venv .venv
