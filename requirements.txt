@@ -17,6 +17,7 @@ python-dotenv
 scipy
 tomli
 typing_extensions==4.5.0
+ipykernel
 # documentation
 tomli>=2.0.1
 sphinx>=5.3
