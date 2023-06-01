@@ -1,3 +1,4 @@
+curl https://pyenv.run | bash
 pyenv install 3.9
 pyenv local 3.9
 python -m venv .venv
