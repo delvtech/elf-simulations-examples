@@ -24,20 +24,7 @@ jobs:
       - run: |
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
-          python -m pip install coverage
 
-      - name: Run pytest with coverage
+      - name: Run pytest
         run: |
-          coverage run -m pytest
-
-      - name: Generate coverage report
-        run: |
-          coverage xml -i
-          coverage html -i
-
-      - name: Upload coverage report to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          flags: unittests
-          fail_ci_if_error: true
-          token: ${{ secrets.CODECOV_TOKEN }}
+          python -m pytest
