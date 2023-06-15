@@ -1,6 +1,12 @@
 # HTML build dir
 build/
 
+# test build dir
+.build/
+
+# pycache
+__pycache__
+
 # Environments
 .env
 .venv
