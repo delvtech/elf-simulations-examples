@@ -1,0 +1,76 @@
+[project]
+name = "elfpy-examples"
+version = "0.1"
+authors = [
+    { name = "Dylan Paiton", email = "dylan@delv.tech" },
+    { name = "Mihai Cosma", email = "mihai@delv.tech" },
+    { name = "Jonny Rhea", email = "jonny@delv.tech" },
+    { name = "Matthew Brown", email = "matt@delv.tech" },
+    { name = "Alex Towle", email = "alex@delv.tech" },
+    { name = "Sheng Lundquist", email = "sheng@delv.tech" },
+    { name = "Patrick Morris", email = "patrick@delv.tech" },
+    { name = "Giovanni Effio", email = "mazygio@delv.tech" },
+    { name = "Ryan Goree", email = "ryan@delv.tech" },
+    { name = "Will Villanueva", email = "will@delv.tech" },
+    { name = "Jacob Arruda", email = "jacob@delv.tech" },
+    { name = "Violet Vienhage", email = "violet@delv.tech" },
+]
+description = "Example notebooks for elfpy"
+readme = "README.md"
+requires-python = ">=3.9, <3.11"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache License 2.0",
+    "Operating System :: OS Independent",
+]
+line-length = "120"
+
+[build-system]
+requires = ["flit_core>=3.2"]
+build-backend = "flit_core.buildapi"
+
+[tool.pylint.format]
+max-line-length = "120"
+
+[tool.black]
+line-length = "120"
+extend-exclude = "\\.ipynb"
+
+[tool.pyright]
+exclude = [
+    ".venv",
+    ".vscode",
+    "docs",
+]
+
+[tool.ruff]
+# Default is: pycodestyle (E) and Pyflakes (F)
+# We add flake8-builtins (A), pydocstyle (D), isort (I), pep8-naming (N), and pylint (PL).
+# We remove pycodestyle (E) since it throws erroneous line too long errors.
+# We remove Pyflakes (F) since it complains about `import *` which we need.
+select = ["A", "D", "I", "N", "PL"]
+
+# We ignore the following rules:
+# D203 : 1 blank line required before class docstring (incompatible with D211: no blank lines before class docstring)
+# D213: multi-line-summary-second-line (incompatible with D212: multi-line summary should start at the first line)
+# D416: section-name-ends-in-colon (numpy style guide doesn't use colons after sections, i.e. Parameters)
+ignore = ["D203", "D213", "D416"]
+
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "D", "I", "N", "PL"]
+unfixable = []
+
+# Ignore builtins in elfpy/utils/math/fixed_point.py
+line-length = 120
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.9.
+target-version = "py39"
+
+exclude = [
+    ".venv",
+    ".vscode",
+    "docs",
+]
