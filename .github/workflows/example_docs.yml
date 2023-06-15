@@ -43,7 +43,7 @@ jobs:
 
       - name: Run script to turn examples to html
         run: |
-          sh ./scripts/notebook_docs.sh
+          bash ./scripts/notebook_docs.sh
 
       - name: Setup Pages
         uses: actions/configure-pages@v3

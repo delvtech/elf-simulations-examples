@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Paths set to be relative to the location of this script
 SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
