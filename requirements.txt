@@ -1,1 +1,2 @@
 elfpy[with-dependencies, docs] @ git+https://github.com/delvtech/elf-simulations@slundqui/setup_py
+ipykernel
