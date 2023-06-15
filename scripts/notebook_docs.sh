@@ -37,7 +37,7 @@ do
       failed_files+=("$f")
     else
       # Add this file and the link to index.html
-      echo "<a href=\"$outfn.html\">$outfn</a>" >> $index_file
+      echo "<a href=\"$outfn.html\">$outfn</a><br>" >> $index_file
     fi
 done
 
