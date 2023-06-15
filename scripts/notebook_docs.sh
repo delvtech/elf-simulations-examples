@@ -9,7 +9,10 @@ indir=$SCRIPTPATH/../examples/
 
 mkdir -p $outdir
 # Clean up notebook_build direcotry
-rm $outdir*
+rm $outdir/* > /dev/null
+
+index_file=$outdir/index.html
+touch $index_file
 
 cd $indir
 fail=0
@@ -32,6 +35,9 @@ do
     if [[ $? -ne 0 ]]; then
       fail=1;
       failed_files+=("$f")
+    else
+      # Add this file and the link to index.html
+      echo "<a href=\"$outfn.html\">$outfn</a>" >> $index_file
     fi
 done
 
