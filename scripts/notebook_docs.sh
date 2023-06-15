@@ -1,10 +1,11 @@
 #!/bin/sh
 
 # Paths set to be relative to the location of this script
-parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+SCRIPTPATH="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+echo $SCRIPTPATH
 
-outdir=$parent_path/../build/
-indir=$parent_path/../examples/
+outdir=$SCRIPTPATH/../build/
+indir=$SCRIPTPATH/../examples/
 
 mkdir -p $outdir
 # Clean up notebook_build direcotry
