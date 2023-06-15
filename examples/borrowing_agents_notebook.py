@@ -18,6 +18,7 @@
 """Simulation for the Hyperdrive Borrow market"""
 from __future__ import annotations
 
+
 # pylint: disable=line-too-long
 # pylint: disable=too-many-lines
 # pylint: disable=too-many-arguments
@@ -54,49 +55,50 @@ except:  # pylint: disable=bare-except
 
 # %%
 from dataclasses import dataclass, field
+import logging
 
 import numpy as np
-from numpy.random._generator import Generator as NumpyGenerator
 import pandas as pd
+from numpy.random._generator import Generator as NumpyGenerator
 
-import elfpy.agents.agent as elf_agent
-import elfpy.agents.wallet as wallet
 import elfpy.time as elf_time
 import elfpy.types as types
 import elfpy.utils.outputs as output_utils
-
-from elfpy.markets.borrow.borrow_market import (
-    Market,
+from elfpy.agents.agent import Agent
+from elfpy.agents.policies.base import BasePolicy
+from elfpy.markets.borrow import (
+    BorrowMarket,
     BorrowMarketAction,
+    BorrowMarketState,
+    BorrowPricingModel,
     MarketActionType,
 )
-from elfpy.markets.borrow.borrow_pricing_model import BorrowPricingModel
-from elfpy.markets.borrow.borrow_market_state import BorrowMarketState
 from elfpy.math.fixed_point import FixedPoint
 from elfpy.simulators.config import Config
+from elfpy.wallet.wallet import Borrow, Wallet
+
+# pylint: disable=too-few-public-methods
 
 
 # %%
-class BorrowingBeatrice(elf_agent.Agent):
+class BorrowingBeatrice(BasePolicy):
     """
     Agent that paints & opens fixed rate borrow positions
     """
 
     def __init__(
         self,
-        rng: NumpyGenerator,
-        trade_chance: float,
-        risk_threshold: float,
-        wallet_address: int,
         budget: FixedPoint = FixedPoint("10_000.0"),
+        rng: NumpyGenerator | None = None,
+        trade_chance: FixedPoint = FixedPoint("1.0"),
+        risk_threshold: FixedPoint = FixedPoint("0.0"),
     ) -> None:
         """Add custom stuff then call basic policy init"""
         self.trade_chance = trade_chance
         self.risk_threshold = risk_threshold
-        self.rng = rng
-        super().__init__(wallet_address, budget)
+        super().__init__(budget, rng)
 
-    def action(self, market: Market) -> list[types.Trade]:
+    def action(self, market: BorrowMarket, wallet: Wallet) -> list[types.Trade]:
         """Implement a Borrowing Beatrice user strategy
 
         I take out loans when the interest rate is below a threshold
@@ -114,18 +116,18 @@ class BorrowingBeatrice(elf_agent.Agent):
         """
         # Any trading at all is based on a weighted coin flip -- they have a trade_chance% chance of executing a trade
         action_list = []
-        gonna_trade = self.rng.choice([True, False], p=[self.trade_chance, 1 - self.trade_chance])
+        gonna_trade = self.rng.choice([True, False], p=[float(self.trade_chance), 1 - float(self.trade_chance)])
         if not gonna_trade:
             return action_list
-        has_borrow = self.wallet.borrows
-        want_to_borrow = market.borrow_rate <= FixedPoint(self.risk_threshold)
+        has_borrow = wallet.borrows
+        want_to_borrow = market.borrow_rate <= self.risk_threshold
         if want_to_borrow and not has_borrow:
             action_list = [
                 types.Trade(
                     market=types.MarketType.BORROW,
                     trade=BorrowMarketAction(
                         action_type=MarketActionType.OPEN_BORROW,
-                        wallet=self.wallet,
+                        wallet=wallet,
                         collateral=types.Quantity(amount=self.budget, unit=types.TokenType.BASE),
                         spot_price=1,
                     ),
@@ -137,7 +139,7 @@ class BorrowingBeatrice(elf_agent.Agent):
                     market=types.MarketType.BORROW,
                     trade=BorrowMarketAction(
                         action_type=MarketActionType.CLOSE_BORROW,
-                        wallet=self.wallet,
+                        wallet=wallet,
                         collateral=types.Quantity(amount=self.budget, unit=types.TokenType.BASE),
                         spot_price=1,  # usdc
                     ),
@@ -166,7 +168,7 @@ config.flat_fee_multiple = 0.05  # fee collected on the spread of the flat porti
 config.target_fixed_apr = 0.01  # target fixed APR of the initial market after the LP
 config.target_liquidity = 500_000_000  # target total liquidity of the initial market, before any trades
 
-config.log_level = output_utils.text_to_log_level("INFO")  # Logging level, should be in ["DEBUG", "INFO", "WARNING"]
+config.log_level = logging.INFO  # Logging level, should be in [DEBUG, INFO, WARNING]
 config.log_filename = "borrowing_beatrice"  # Output filename for logging
 
 config.shuffle_users = True
@@ -204,15 +206,17 @@ market_state = BorrowMarketState(
     lending_rate=FixedPoint("0.01"),
     spread_ratio=FixedPoint("1.25"),
 )
-market = Market(pricing_model=BorrowPricingModel(), market_state=market_state, block_time=elf_time.BlockTime())
+market = BorrowMarket(pricing_model=BorrowPricingModel(), market_state=market_state, block_time=elf_time.BlockTime())
 
 agents = {
-    0: BorrowingBeatrice(
-        rng=config.rng,
-        trade_chance=0.1,
-        risk_threshold=0.02,
+    0: Agent(
         wallet_address=1,
-        budget=FixedPoint("10_000.0"),
+        policy=BorrowingBeatrice(
+            budget=FixedPoint("10_000.0"),
+            rng=config.rng,
+            trade_chance=FixedPoint(trade_chance),
+            risk_threshold=FixedPoint("0.02"),
+        ),
     )
 }
 
@@ -223,7 +227,7 @@ class BorrowSimState:
 
     day: list[int] = field(default_factory=list)
     block: list[int] = field(default_factory=list)
-    borrows: list[dict[FixedPoint, wallet.Borrow]] = field(default_factory=list)
+    borrows: list[dict[FixedPoint, Borrow]] = field(default_factory=list)
 
     def add_dict_entries(self, dictionary: dict) -> None:
         """Add dict entries to the sim state"""
@@ -268,3 +272,5 @@ for day in range(config.num_trading_days):
 # %%
 df = pd.DataFrame.from_dict(simulation_state.__dict__)
 print(df)
+
+# %%
