@@ -9,11 +9,11 @@ indir=$SCRIPTPATH/../examples/
 
 mkdir -p $outdir
 # Clean up notebook_build direcotry
-rm $outdir/*
+rm $outdir*
 
 cd $indir
 fail=0
-failed_files=()
+declare -a failed_files=()
 # Only do this for files ending in _notebook.py
 for f in *.py
 do
