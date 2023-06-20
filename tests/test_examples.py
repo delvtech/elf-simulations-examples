@@ -76,7 +76,7 @@ class TestExamples(unittest.TestCase):
                     continue
                 obj = target.value.id  # object being modified
                 attrib = target.attr  # attribute of object
-                if obj == "config" and attrib in ["num_trading_days", "num_blocks_per_day"]:
+                if obj == "config" and attrib in ["num_trading_days", "num_blocks_per_day", "num_agents"]:
                     test_value = 4  # reduces the total number of trades to keep things fast
                     tree.body[node_idx] = ast.Assign(
                         targets=[target],
