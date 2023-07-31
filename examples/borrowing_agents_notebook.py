@@ -18,40 +18,6 @@
 """Simulation for the Hyperdrive Borrow market"""
 from __future__ import annotations
 
-# pylint: disable=line-too-long
-# pylint: disable=too-many-lines
-# pylint: disable=too-many-arguments
-# pylint: disable=invalid-name
-# pylint: disable=redefined-outer-name
-# pyright: reportOptionalMemberAccess=false, reportGeneralTypeIssues=false
-
-# %% [markdown]
-# ## Hyperdrive Borrow market simulation
-# We use the following setup:
-# - TBD
-# * variable rate:
-#     * step function
-#     * rate changes every 3 months
-#     *
-#
-# For details on the simulation framework, please see our <a href="https://elfpy.element.fi/">simulation documentation</a>
-
-# %% [markdown]
-# ### Install repo requirements & import packages
-
-# %%
-# test: skip-cell
-try:  # install dependencies only if running on google colab
-    # check if running in Google Colaboratory
-    eval("import google.colab")  # pylint: disable=eval-used
-    import os
-
-    os.system(
-        "!pip install git+https://github.com/delvtech/elf-simulations.git@4536bb486b7ce857840996448dbb479adb1c5c14"
-    )
-except:  # pylint: disable=bare-except
-    print("running locally & trusting that you have the dependencies installed")
-
 import logging
 
 # %%
@@ -75,6 +41,28 @@ from elfpy.simulators.config import Config
 from elfpy.wallet.wallet import Borrow, Wallet
 from fixedpointmath import FixedPoint
 from numpy.random._generator import Generator as NumpyGenerator
+
+# pylint: disable=line-too-long
+# pylint: disable=too-many-lines
+# pylint: disable=too-many-arguments
+# pylint: disable=invalid-name
+# pylint: disable=redefined-outer-name
+# pyright: reportOptionalMemberAccess=false, reportGeneralTypeIssues=false
+
+# %% [markdown]
+# ## Hyperdrive Borrow market simulation
+# We use the following setup:
+# - TBD
+# * variable rate:
+#     * step function
+#     * rate changes every 3 months
+#     *
+#
+# For details on the simulation framework, please see our <a href="https://elfpy.element.fi/">simulation documentation</a>
+
+# %% [markdown]
+# ### Install repo requirements & import packages
+
 
 # pylint: disable=too-few-public-methods
 
