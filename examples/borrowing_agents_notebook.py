@@ -18,7 +18,6 @@
 """Simulation for the Hyperdrive Borrow market"""
 from __future__ import annotations
 
-
 # pylint: disable=line-too-long
 # pylint: disable=too-many-lines
 # pylint: disable=too-many-arguments
@@ -53,17 +52,16 @@ try:  # install dependencies only if running on google colab
 except:  # pylint: disable=bare-except
     print("running locally & trusting that you have the dependencies installed")
 
-# %%
-from dataclasses import dataclass, field
 import logging
 
-import numpy as np
-import pandas as pd
-from numpy.random._generator import Generator as NumpyGenerator
+# %%
+from dataclasses import dataclass, field
 
 import elfpy.time as elf_time
 import elfpy.types as types
 import elfpy.utils.outputs as output_utils
+import numpy as np
+import pandas as pd
 from elfpy.agents.agent import Agent
 from elfpy.agents.policies.base import BasePolicy
 from elfpy.markets.borrow import (
@@ -73,9 +71,10 @@ from elfpy.markets.borrow import (
     BorrowPricingModel,
     MarketActionType,
 )
-from elfpy.math.fixed_point import FixedPoint
 from elfpy.simulators.config import Config
 from elfpy.wallet.wallet import Borrow, Wallet
+from fixedpointmath import FixedPoint
+from numpy.random._generator import Generator as NumpyGenerator
 
 # pylint: disable=too-few-public-methods
 

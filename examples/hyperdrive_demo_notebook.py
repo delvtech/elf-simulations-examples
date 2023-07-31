@@ -17,6 +17,7 @@
 # %%
 """simulation for the Hyperdrive market"""
 from __future__ import annotations
+
 import logging
 
 from matplotlib.axes import Axes
@@ -54,22 +55,22 @@ except:  # pylint: disable=bare-except
     print("running locally & trusting that you have the dependencies installed")
 
 
-# %%
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from numpy.random._generator import Generator as NumpyGenerator
-
 import elfpy.markets.hyperdrive.hyperdrive_actions as hyperdrive_actions
 import elfpy.utils.outputs as output_utils
 import elfpy.utils.post_processing as post_processing
+import matplotlib.pyplot as plt
+
+# %%
+import numpy as np
+import pandas as pd
 from elfpy.agents.agent import Agent
 from elfpy.agents.policies import RandomAgent
-from elfpy.math import FixedPoint
 from elfpy.simulators.config import Config
 from elfpy.utils import sim_utils
 from elfpy.utils.outputs import get_gridspec_subplots
 from elfpy.wallet.wallet import Wallet
+from fixedpointmath import FixedPoint
+from numpy.random._generator import Generator as NumpyGenerator
 
 # %% [markdown]
 # ### Setup experiment parameters

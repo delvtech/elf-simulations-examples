@@ -1,3 +1,3 @@
 # This checks out the latest commit on main with dependencies and doc dependencies.
-elfpy[with-dependencies, docs] @ git+https://github.com/delvtech/elf-simulations
+elfpy[with-dependencies, docs] @ git+https://github.com/delvtech/elf-simulations@v0.2.0
 ipykernel
