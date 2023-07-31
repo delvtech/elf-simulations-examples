@@ -1,3 +1,4 @@
+# %%
 """Agent that tracks the vault apr"""
 # %%
 from __future__ import annotations
