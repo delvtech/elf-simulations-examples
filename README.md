@@ -9,4 +9,4 @@ This project is a work-in-progress. All code is provided as is and without guara
 
 Documentation can be found [here](https://elfpy.delv.tech).
 
-This repository contains example notebooks for the [elf-simulation](https://github.com/delvtech/elf-simulations) repository. Pushes to main on this repo runs github actions to automatically run notebooks in `examples/*_notebook.py`, converts them to html files, and gets uploaded to the [github pages](https://delvtech.github.io/elf-simulations-examples/) for this repository. These pages then get read from the main repo's documentation.
+This repository contains example notebooks for the [elf-simulation](https://github.com/delvtech/elf-simulations) repository. Pushes to main on this repo runs Github actions that automatically run the notebooks in `examples/*_notebook.py`, converts them to HTML files, and uploads them to [the elf-simulations docs]([https://delvtech.github.io/elf-simulations-examples/](https://elfpy.delv.tech/examples/index.html)).
