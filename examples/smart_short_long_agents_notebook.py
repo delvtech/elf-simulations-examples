@@ -4,23 +4,22 @@ from __future__ import annotations
 
 import logging
 
-import matplotlib.ticker as ticker
-
-# %%
-import numpy as np
-from numpy.random._generator import Generator as NumpyGenerator
-
 import elfpy.types as types
 import elfpy.utils.outputs as output_utils
 import elfpy.utils.post_processing as post_processing
 import elfpy.utils.sim_utils as sim_utils
+import matplotlib.ticker as ticker
+
+# %%
+import numpy as np
 from elfpy.agents.agent import Agent
 from elfpy.agents.policies import LongLouie, ShortSally
 from elfpy.agents.policies.base import BasePolicy
 from elfpy.markets.hyperdrive import HyperdriveMarket, hyperdrive_actions
-from elfpy.math import FixedPoint
 from elfpy.simulators.config import Config
 from elfpy.wallet.wallet import Wallet
+from fixedpointmath import FixedPoint
+from numpy.random._generator import Generator as NumpyGenerator
 
 # pylint: disable=line-too-long
 # pylint: disable=too-many-lines

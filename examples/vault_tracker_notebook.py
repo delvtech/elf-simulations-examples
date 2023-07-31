@@ -1,29 +1,28 @@
+# %%
 """Agent that tracks the vault apr"""
 # %%
 from __future__ import annotations
+
 import logging
-
 import os
-
-import numpy as np
-from numpy.random._generator import Generator as NumpyGenerator
-import matplotlib.pyplot as plt
-import pandas as pd
-from scipy import special
 
 import elfpy.markets.hyperdrive.hyperdrive_actions as hyperdrive_actions
 import elfpy.types as types
 import elfpy.utils.outputs as output_utils
 import elfpy.utils.post_processing as post_processing
-
-from elfpy import WEI, PRECISION_THRESHOLD
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+from elfpy import PRECISION_THRESHOLD, WEI
 from elfpy.agents.agent import Agent
 from elfpy.agents.policies.base import BasePolicy
 from elfpy.markets.hyperdrive import HyperdriveMarket
-from elfpy.math import FixedPoint
 from elfpy.simulators.config import Config
 from elfpy.utils import sim_utils
 from elfpy.wallet.wallet import Wallet
+from fixedpointmath import FixedPoint
+from numpy.random._generator import Generator as NumpyGenerator
+from scipy import special
 
 # pylint: disable=too-many-arguments
 # pylint: disable=too-many-branches

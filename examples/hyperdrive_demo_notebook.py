@@ -1,3 +1,4 @@
+# %%
 # ---
 # jupyter:
 #   jupytext:
@@ -17,9 +18,26 @@
 # %%
 """simulation for the Hyperdrive market"""
 from __future__ import annotations
+
 import logging
 
+import elfpy.markets.hyperdrive.hyperdrive_actions as hyperdrive_actions
+import elfpy.utils.outputs as output_utils
+import elfpy.utils.post_processing as post_processing
+import matplotlib.pyplot as plt
+
+# %%
+import numpy as np
+import pandas as pd
+from elfpy.agents.agent import Agent
+from elfpy.agents.policies import RandomAgent
+from elfpy.simulators.config import Config
+from elfpy.utils import sim_utils
+from elfpy.utils.outputs import get_gridspec_subplots
+from elfpy.wallet.wallet import Wallet
+from fixedpointmath import FixedPoint
 from matplotlib.axes import Axes
+from numpy.random._generator import Generator as NumpyGenerator
 
 # pylint: disable=line-too-long
 # pylint: disable=too-many-lines
@@ -40,36 +58,6 @@ from matplotlib.axes import Axes
 # %% [markdown]
 # ### Install repo requirements & import packages
 
-# %%
-# test: skip-cell
-try:  # install repo only if running on google colab
-    # check if running in Google Colaboratory
-    eval("import google.colab")  # pylint: disable=eval-used
-    import os
-
-    os.system(
-        "!pip install git+https://github.com/delvtech/elf-simulations.git@4536bb486b7ce857840996448dbb479adb1c5c14"
-    )
-except:  # pylint: disable=bare-except
-    print("running locally & trusting that you have the dependencies installed")
-
-
-# %%
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from numpy.random._generator import Generator as NumpyGenerator
-
-import elfpy.markets.hyperdrive.hyperdrive_actions as hyperdrive_actions
-import elfpy.utils.outputs as output_utils
-import elfpy.utils.post_processing as post_processing
-from elfpy.agents.agent import Agent
-from elfpy.agents.policies import RandomAgent
-from elfpy.math import FixedPoint
-from elfpy.simulators.config import Config
-from elfpy.utils import sim_utils
-from elfpy.utils.outputs import get_gridspec_subplots
-from elfpy.wallet.wallet import Wallet
 
 # %% [markdown]
 # ### Setup experiment parameters

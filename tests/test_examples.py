@@ -3,22 +3,22 @@ import matplotlib
 
 matplotlib.use("Agg")  # headless backend so that plots won't render
 
-# pylint: disable=wrong-import-order
-# pylint: disable=wrong-import-position
-import unittest
+import ast
 import builtins
 import logging
 import os
 import pathlib
-import ast
 import tempfile
-from contextlib import redirect_stdout, redirect_stderr
+
+# pylint: disable=wrong-import-order
+# pylint: disable=wrong-import-position
+import unittest
+from contextlib import redirect_stderr, redirect_stdout
 
 import astunparse
-from IPython.core.inputtransformer2 import TransformerManager
-import jupytext
-
 import elfpy.utils.outputs as output_utils
+import jupytext
+from IPython.core.inputtransformer2 import TransformerManager
 
 
 class TestExamples(unittest.TestCase):
@@ -87,6 +87,7 @@ class TestExamples(unittest.TestCase):
             # decompile ast into source, write to a fake file, execute the file
             # writing to a fake file (as opposed to just directly executing the source)
             # allows us to hold an environment state (e.g. import aliases) throughout execution
+
             try:
                 with tempfile.NamedTemporaryFile(mode="w", suffix=".py") as ntf:
                     ntf.write(astunparse.unparse(tree))
@@ -98,5 +99,6 @@ class TestExamples(unittest.TestCase):
                         global_env = {}
                         exec(cleaned_source, global_env)  # pylint: disable=exec-used
             except builtins.BaseException as exc:
+                print(exc)
                 raise AssertionError(f"notebook {file} failed") from exc
         output_utils.close_logging()
