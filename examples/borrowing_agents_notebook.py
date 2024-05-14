@@ -58,8 +58,6 @@ from numpy.random._generator import Generator as NumpyGenerator
 #     * step function
 #     * rate changes every 3 months
 #     *
-#
-# For details on the simulation framework, please see our <a href="https://elfpy.element.fi/">simulation documentation</a>
 
 # %% [markdown]
 # ### Install repo requirements & import packages
